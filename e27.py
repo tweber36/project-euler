@@ -1,5 +1,3 @@
-import math
-
 def is_prime(n):
     if n < 0:
         return False
@@ -7,6 +5,7 @@ def is_prime(n):
         if n%i == 0:
             return False
     return True
+
 
 def number_of_primes(a, b):
     n = 0
@@ -21,7 +20,7 @@ if __name__ == '__main__':
         for j in [x for x in range(2, 1001) if is_prime(x)]:
             nb_primes = number_of_primes(i, j)
             if nb_primes > max_number_primes:
-               max_number_primes = nb_primes
-               product = i * j
+                max_number_primes = nb_primes
+                product = i * j
 
     print(product)
