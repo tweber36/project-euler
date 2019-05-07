@@ -3,6 +3,18 @@
 """
 
 
+def fib(limit):
+    """
+    Returns all Fibonacci numbers up to limit.
+    See problem 2 for details.
+    """
+    yield 0
+    a, b = 0, 1
+    while b < limit:
+        yield b
+        a, b = b, a + b
+
+
 def prime_factors(n):
     """
     Generator that returns all prime factors of a number.
@@ -65,7 +77,7 @@ def primes_generator(n):
     for (i, isprime) in enumerate(a):
         if isprime:
             yield i
-            for x in range(i*i, n, i):
+            for x in range(i * i, n, i):
                 a[x] = False
 
 
@@ -76,6 +88,6 @@ def primes_list(n):
     sieve = [True] * n
     for i in range(3, int(n ** 0.5) + 1, 2):
         if sieve[i]:
-            sieve[i*i::2*i] = [False] * int((n-i*i-1) / (2*i)+1)
+            sieve[i * i :: 2 * i] = [False] * int((n - i * i - 1) / (2 * i) + 1)
 
     return [2] + [i for i in range(3, n, 2) if sieve[i]]

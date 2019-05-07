@@ -12,8 +12,10 @@ class Problem0001(EulerProblem):
     simple_input = 9
     simple_output = 23
     real_input = 999
+    real_output = 233168
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         """
         Sum of numbers divisible by 3 (=3+6+9+..+999=3*(1+2+3+..+333)) +
         sum of numbers divisble by 5 (=5+10+..+995=5*(1+2+..+199)) -
@@ -25,7 +27,8 @@ class Problem0001(EulerProblem):
             - 15 * (input_val // 15 * (input_val // 15 + 1) // 2)
         )
 
-    def solver2(self, input_val):
+    @staticmethod
+    def solver2(input_val):
         """ One-liner but more than 100 times slower"""
         return sum(x for x in range(input_val + 1) if x % 3 == 0 or x % 5 == 0)
 

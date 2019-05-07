@@ -1,13 +1,6 @@
+from math import sqrt, log10
 from pyler import EulerProblem
-
-
-def fib_even(n):
-    if n == 0:
-        return 2
-    elif n == 1:
-        return 8
-    else:
-        return 4 * fib_even(n - 1) + fib_even(n - 2)
+from utils import fib
 
 
 class Problem0002(EulerProblem):
@@ -23,9 +16,26 @@ class Problem0002(EulerProblem):
     simple_input = 100
     simple_output = 44
     real_input = 4000000
+    real_output = 4613732
 
-    def solver(self, input_val):
-        """Only one every three terms is even."""
+    @staticmethod
+    def solver(input_val):
+        """ Go through all Fibonacci numbers below input_val. Add if even. """
+        a, b, S = 0, 1, 0
+        while b <= input_val:
+            a, b = b, a + b
+            if a % 2 == 0:
+                S += a
+        return S
+
+    @staticmethod
+    def solver2(input_val):
+        """ Same but using generator. """
+        return sum(x for x in fib(input_val) if x % 2 == 0)
+
+    @staticmethod
+    def solver3(input_val):
+        """ Only one every three terms is even. """
         result = 0
         a, b = 1, 1  # First two terms in Fib sequence
         c = a + b
@@ -36,22 +46,64 @@ class Problem0002(EulerProblem):
             c = a + b
         return result
 
-    def solver2(self, input_val):
-        fib_seq = [1, 1]
-        while fib_seq[-1] + fib_seq[-2] < input_val:
-            fib_seq.append(fib_seq[-1] + fib_seq[-2])
+    @staticmethod
+    def solver4(input_val):
+        """
+        One can prove that even terms are every third number.
+        So, let define G(n) = F(3n) and S(n) = sum(G(n))
+        With a = F(3n+2), b = F(3n+3), we can prove that next a and b will be:
+        a' = F(3n+5) = a + 2b
+        b' = F(3n+6) = 2a + 3b
+        """
+        a, b, S = 1, 2, 0
+        while b <= input_val:
+            a, b, S = a + 2 * b, 2 * a + 3 * b, b + S
+        return S
 
-        return sum(x for x in fib_seq if x % 2 == 0)
+    @staticmethod
+    def solver5(input_val):
+        """
+        We can prove that G(n) = F(3n) can be constructed more directly by:
+        G(0) = 0, G(1) = 2 and G(n+2) = 4G(n+1) + G(n)
+        """
+        a, b, S = 0, 2, 0
+        while b <= input_val:
+            a, b, S = b, a + 4 * b, S + b
+        return S
 
-    def solver3(self, input_val):
-        x = 0
-        fib_sum = 0
-        fib_x = fib_even(x)
-        while fib_x <= input_val:
-            fib_sum += fib_x
-            x += 1
-            fib_x = fib_even(x)
-        return fib_sum
+    @staticmethod
+    def solver6(input_val):
+        """
+        We can prove that S(n) = (G(n) + G(n+1) - 2)/4
+        (using the previous recurrence relationship)
+        It avoids to update S with every even term and just compute it at the end.
+        """
+        a, b = 0, 2
+        while b <= input_val:
+            a, b = b, a + 4 * b
+        return (b + a - 2) // 4
+
+    @staticmethod
+    def solver7(input_val):
+        """
+        From the recurrence relationship, we can find exact formula for G(n).
+        Now, we just need to estimate the index of n which give the answer,
+        this is done by using log approximation.
+        Then, it's just a sum of G(n) up to that index
+        (result might not be very precise due to square roots calculus).
+
+        The second part, once the index of n has been determined,
+        can be improved to compute S(n) faster than
+        iterate all terms.
+        """
+        n = int((log10(input_val) + log10(sqrt(5))) / log10(2 + sqrt(5)))
+
+        return int(
+            sum(
+                (((2 + sqrt(5)) ** i) - ((2 - sqrt(5)) ** i)) / sqrt(5)
+                for i in range(n + 1)
+            )
+        )
 
 
 if __name__ == "__main__":
