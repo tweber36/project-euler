@@ -11,6 +11,6 @@ def pythagorean_triplet(sum):
 if __name__ == "__main__":
     a, b, c = pythagorean_triplet(1000)
 
-    print a, b, c
-    print a*b*c
+    print(a, b, c)
+    print(a*b*c)
 
