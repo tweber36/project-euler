@@ -1,0 +1,27 @@
+from pyler import EulerProblem
+
+
+class Problem0119(EulerProblem):
+    """
+    The number 512 is interesting because it is equal to the sum of its digits
+    raised to some power: 5 + 1 + 2 = 8, and 83 = 512. Another example of a
+    number with this property is 614656 = 284. We shall define an to be the nth
+    term of this sequence and insist that a number must contain at least two
+    digits to have a sum. You are given that a2 = 512 and a10 = 614656. Find
+    a30.
+    """
+    problem_id = 119
+    simple_input = 0
+    simple_output = 1
+    real_input = 0
+    real_output = 1
+    
+    @staticmethod
+    def solver(input_val):
+        raise NotImplementedError
+
+
+if __name__ == '__main__':
+    import unittest
+    unittest.main()
+

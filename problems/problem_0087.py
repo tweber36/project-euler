@@ -1,0 +1,27 @@
+from pyler import EulerProblem
+
+
+class Problem0087(EulerProblem):
+    """
+    The smallest number expressible as the sum of a prime square, prime cube,
+    and prime fourth power is 28. In fact, there are exactly four numbers below
+    fifty that can be expressed in such a way: 28 = 22 + 23 + 24 33 = 32 + 23 +
+    24 49 = 52 + 23 + 24 47 = 22 + 33 + 24 How many numbers below fifty million
+    can be expressed as the sum of a prime square, prime cube, and prime fourth
+    power?
+    """
+    problem_id = 87
+    simple_input = 0
+    simple_output = 1
+    real_input = 0
+    real_output = 1
+    
+    @staticmethod
+    def solver(input_val):
+        raise NotImplementedError
+
+
+if __name__ == '__main__':
+    import unittest
+    unittest.main()
+
