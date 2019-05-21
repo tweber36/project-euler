@@ -10,6 +10,10 @@ class Problem0002(EulerProblem):
     8, 13, 21, 34, 55, 89, ... By considering the terms in the Fibonacci
     sequence whose values do not exceed four million, find the sum of the even-
     valued terms.
+
+    Some solutions are based on this post:
+    https://projecteuler.net/thread=2;page=5
+    The rest on the problem overview.
     """
 
     problem_id = 2

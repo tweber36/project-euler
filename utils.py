@@ -25,15 +25,16 @@ def prime_factors(n):
     """
     if n % 2 == 0:
         while n % 2 == 0:
+            yield 2
             n //= 2
-        yield 2
     factor = 3
     max_factor = n ** 0.5
     while n > 1 and factor <= max_factor:
         if n % factor == 0:
             while n % factor == 0:
+                yield factor
                 n //= factor
             max_factor = n ** 0.5
-            yield factor
         factor += 2
-    yield n
+    if n > 1:
+        yield n
