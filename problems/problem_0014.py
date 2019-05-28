@@ -1,7 +1,8 @@
+import unittest
 from pyler import EulerProblem
 
 
-class Problem0014(EulerProblem):
+class Problem0014(EulerProblem, unittest.TestCase):
     """
     The following iterative sequence is defined for the set of positive
     integers: n → n/2 (n is even)n → 3n + 1 (n is odd) Using the rule above and
@@ -19,8 +20,9 @@ class Problem0014(EulerProblem):
     real_input = 1000000
     real_output = 837799
 
-    @staticmethod
-    def solver(input_val):
+    """ 
+    ---- TOO SLOW -----
+    def solver(self, input_val):
         longest_chain = 0
         answer = 0
 
@@ -40,9 +42,9 @@ class Problem0014(EulerProblem):
                 answer = i
 
         return answer
+    """
 
-    @staticmethod
-    def solver2(input_val):
+    def solver2(self, input_val):
         cache = {1: 1}
         longest_chain, answer = 0, -1
 
@@ -54,7 +56,6 @@ class Problem0014(EulerProblem):
                 if value in cache:
                     counter += cache[value]
                     break
-
                 if value % 2 == 0:
                     counter += 1
                     value /= 2
@@ -69,8 +70,7 @@ class Problem0014(EulerProblem):
                 answer = i
         return answer
 
-    @staticmethod
-    def solver3(input_val):
+    def solver3(self, input_val):
         def collatz(n):
             return n // 2 if n % 2 == 0 else 3 * n + 1
 
@@ -83,6 +83,4 @@ class Problem0014(EulerProblem):
 
 
 if __name__ == "__main__":
-    import unittest
-
     unittest.main()

@@ -1,9 +1,10 @@
-from pyler import EulerProblem
+import unittest
 from functools import reduce
 from operator import mul
+from pyler import EulerProblem
 
 
-class Problem0008(EulerProblem):
+class Problem0008(EulerProblem, unittest.TestCase):
     """
     The four adjacent digits in the 1000-digit number that have the greatest
     product are 9 × 9 × 8 × 9 = 5832.
@@ -30,14 +31,14 @@ class Problem0008(EulerProblem):
     adjacent digits in the 1000-digit number that have the greatest product.
     What is the value of this product?
     """
+
     problem_id = 8
     simple_input = 4
     simple_output = 5832
     real_input = 13
     real_output = 23514624000
-    
-    @staticmethod
-    def solver(input_val):
+
+    def solver(self, input_val):
         d = """
                     73167176531330624919225119674426574742355349194934
                     96983520312774506326239578318016984801869478851843
@@ -73,6 +74,5 @@ class Problem0008(EulerProblem):
         return max_product
 
 
-if __name__ == '__main__':
-    import unittest
+if __name__ == "__main__":
     unittest.main()

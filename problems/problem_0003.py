@@ -1,8 +1,9 @@
+import unittest
 from pyler import EulerProblem
 from utils import prime_factors
 
 
-class Problem0003(EulerProblem):
+class Problem0003(EulerProblem, unittest.TestCase):
     """
     The prime factors of 13195 are 5, 7, 13 and 29. What is the largest prime
     factor of the number 600851475143 ?
@@ -14,8 +15,7 @@ class Problem0003(EulerProblem):
     real_input = 600851475143
     real_output = 6857
 
-    @staticmethod
-    def solver(input_val):
+    def solver(self, input_val):
         """
         Naive solution testing all numbers to see if they are a prime factor.
         """
@@ -30,8 +30,7 @@ class Problem0003(EulerProblem):
             factor += 1
         return last_factor
 
-    @staticmethod
-    def solver2(input_val):
+    def solver2(self, input_val):
         """
         A bit less naive, testing 2 and then only odd numbers.
         """
@@ -50,8 +49,7 @@ class Problem0003(EulerProblem):
             factor += 2
         return last_factor
 
-    @staticmethod
-    def solver3(input_val):
+    def solver3(self, input_val):
         """
         Every number n can at most have one prime factor greater than sqrt(n).
         If we, after dividing out some prime factor, calculate the square root of
@@ -77,13 +75,10 @@ class Problem0003(EulerProblem):
             return last_factor
         return n
 
-    @staticmethod
-    def solver4(input_val):
+    def solver4(self, input_val):
         """ Same but using a generator that returns all prime factors. """
         return list(prime_factors(input_val))[-1]
 
 
 if __name__ == "__main__":
-    import unittest
-
     unittest.main()

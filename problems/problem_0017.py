@@ -1,7 +1,8 @@
+import unittest
 from pyler import EulerProblem
 
 
-class Problem0017(EulerProblem):
+class Problem0017(EulerProblem, unittest.TestCase):
     """
     If the numbers 1 to 5 are written out in words: one, two, three, four, five,
     then there are 3 + 3 + 5 + 4 + 4 = 19 letters used in total. If all the
@@ -18,8 +19,7 @@ class Problem0017(EulerProblem):
     real_input = 1000
     real_output = 21124
 
-    @staticmethod
-    def solver(input_val):
+    def solver(self, input_val):
         """ Works for input_val up to 1000 """
         numbers = {
             0: "",
@@ -65,6 +65,4 @@ class Problem0017(EulerProblem):
 
 
 if __name__ == "__main__":
-    import unittest
-
     unittest.main()

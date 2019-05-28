@@ -1,9 +1,10 @@
-from pyler import EulerProblem
+import unittest
 from functools import reduce
 from operator import mul
+from pyler import EulerProblem
 
 
-class Problem0011(EulerProblem):
+class Problem0011(EulerProblem, unittest.TestCase):
     """
     In the 20×20 grid below, four numbers along a diagonal line have been marked
     in red.  08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08 49 49
@@ -33,8 +34,7 @@ class Problem0011(EulerProblem):
     real_input = 4
     real_output = 70600674
 
-    @staticmethod
-    def solver(input_val):
+    def solver(self, input_val):
         grid = """
                 08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
                 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
@@ -72,21 +72,19 @@ class Problem0011(EulerProblem):
             for x in range(20)
             for y in range(20 - input_val + 1)
         )
-        diagonal_no_se = max(
+        diagonal_nw_se = max(
             reduce(mul, grid[20 * y + x : 20 * y + x + (input_val - 1) * 21 + 1 : 21])
             for x in range(20 - input_val + 1)
             for y in range(20 - input_val + 1)
         )
-        diagonal_ne_so = max(
+        diagonal_ne_sw = max(
             reduce(mul, grid[20 * y + x : 20 * y + x + (input_val - 1) * 19 + 1 : 19])
             for x in range(input_val - 1, 20)
             for y in range(20 - input_val + 1)
         )
 
-        return max(horizontal, vertical, diagonal_ne_so, diagonal_no_se)
+        return max(horizontal, vertical, diagonal_ne_sw, diagonal_nw_se)
 
 
 if __name__ == "__main__":
-    import unittest
-
     unittest.main()

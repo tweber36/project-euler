@@ -1,9 +1,10 @@
-from pyler import EulerProblem
+import unittest
 from math import log
+from pyler import EulerProblem
 from prime_generator import rwh_primes
 
 
-class Problem0007(EulerProblem):
+class Problem0007(EulerProblem, unittest.TestCase):
     """
     By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see
     that the 6th prime is 13. What is the 10 001st prime number?
@@ -15,8 +16,7 @@ class Problem0007(EulerProblem):
     real_input = 10001
     real_output = 104743
 
-    @staticmethod
-    def solver(input_val):
+    def solver(self, input_val):
         """
         Some useful facts:
         1 is not a prime.
@@ -59,8 +59,7 @@ class Problem0007(EulerProblem):
 
         return candidate
 
-    @staticmethod
-    def solver2(input_val):
+    def solver2(self, input_val):
         """
         If p(n) is the n-th prime number, we know (Rosser, 1941) that an upper bound
         for n >= 6 is: n * ln( n * ln(n))
@@ -76,6 +75,4 @@ class Problem0007(EulerProblem):
 
 
 if __name__ == "__main__":
-    import unittest
-
     unittest.main()

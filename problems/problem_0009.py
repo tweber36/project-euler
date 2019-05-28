@@ -1,8 +1,9 @@
-from pyler import EulerProblem
+import unittest
 from math import sqrt, gcd
+from pyler import EulerProblem
 
 
-class Problem0009(EulerProblem):
+class Problem0009(EulerProblem, unittest.TestCase):
     """
     A Pythagorean triplet is a set of three natural numbers, a < b < c, for
     which,  a2 + b2 = c2 For example, 32 + 42 = 9 + 16 = 25 = 52. There exists
@@ -16,8 +17,7 @@ class Problem0009(EulerProblem):
     real_input = 1000
     real_output = 31875000
 
-    @staticmethod
-    def solver(input_val):
+    def solver(self, input_val):
         """
         This algorithm is sufficiently fast for small enough s,
         but it doesn’t scale well.
@@ -34,8 +34,7 @@ class Problem0009(EulerProblem):
                     return a * b * c
         return 0
 
-    @staticmethod
-    def solver2(input_val):
+    def solver2(self, input_val):
         """
         If a² + b² = c² and a + b + c = input_val
         then we can find b = input_val * (input_val/2-a) / (input_val-a)
@@ -47,8 +46,7 @@ class Problem0009(EulerProblem):
             if int(b) == b:
                 return a * int(b) * (input_val - a - int(b))
 
-    @staticmethod
-    def solver3(input_val):
+    def solver3(self, input_val):
         """ See problem overview for details. """
         m_limit = int(sqrt(input_val / 2))
         for m in range(2, m_limit + 1):
@@ -72,6 +70,4 @@ class Problem0009(EulerProblem):
 
 
 if __name__ == "__main__":
-    import unittest
-
     unittest.main()

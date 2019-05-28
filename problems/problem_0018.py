@@ -1,7 +1,8 @@
+import unittest
 from pyler import EulerProblem
 
 
-class Problem0018(EulerProblem):
+class Problem0018(EulerProblem, unittest.TestCase):
     """
     By starting at the top of the triangle below and moving to adjacent numbers
     on the row below, the maximum total from top to bottom is 23. 37 4 2 4 6 8 5
@@ -40,19 +41,18 @@ class Problem0018(EulerProblem):
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"""
     real_output = 1074
 
-    @staticmethod
-    def solver(input_val):
+    def solver(self, input_val):
         """
         The idea is to start from the end.
         At a number on the layer i, you can look at the two numbers possible
         from layer i+1 and choose the highest to add to the number on layer i.
         And so on until you reach the first layer with only one number.
         """
-        grid = list(map(lambda x: list(map(int, x.split())), input_val.split('\n')))
+        grid = list(map(lambda x: list(map(int, x.split())), input_val.split("\n")))
 
         for i in range(len(grid) - 2, -1, -1):
             for j in range(len(grid[i])):
-                if grid[i+1][j] >= grid[i + 1][j + 1]:
+                if grid[i + 1][j] >= grid[i + 1][j + 1]:
                     grid[i][j] += grid[i + 1][j]
                 else:
                     grid[i][j] += grid[i + 1][j + 1]
@@ -60,6 +60,4 @@ class Problem0018(EulerProblem):
 
 
 if __name__ == "__main__":
-    import unittest
-
     unittest.main()
