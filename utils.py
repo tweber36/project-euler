@@ -66,3 +66,33 @@ def sum_of_proper_divisors(n):
         if n % divisor == 0
     )
     return answer
+
+
+def is_prime(n):
+    """ Primality test of n by looking for divisors up to n / 2 """
+    if n > 1:
+        for i in range(2, n // 2):
+            if n % i == 0:
+                return False
+        return True
+    return False
+
+
+def is_prime2(n):
+    """
+    Faster primality test looking for number in the form 6k +- 1
+    and looking only up to the square root of n (because any factor after must be a
+    multiple of smaller factor that has been already checked).
+    """
+    if n <= 1:
+        return False
+    if n in (2, 3):
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    while i * i <= n:
+        if n % i == 0 or n % (i + 2) == 0:
+            return False
+        i += 6
+    return True
