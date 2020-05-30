@@ -73,8 +73,8 @@ def connect(website):
         post_data=credentials,
         url=get_url(website, url_path="sign_in")
     )
-    if "Sign in successful" not in get_message(soup):
-        raise ValueError("Unsuccessful login :(")
+    #if "Sign in successful" not in get_message(soup):
+    #    raise ValueError("Unsuccessful login :(")
 
     save_session_cookies(config, website.session)
 
