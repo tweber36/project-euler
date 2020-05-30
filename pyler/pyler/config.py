@@ -4,7 +4,7 @@ import os
 from . import utils
 
 
-class Config():
+class Config:
 
     def __getitem__(self, name):
         try:
