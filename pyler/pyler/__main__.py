@@ -118,7 +118,7 @@ def gen_files(problem_ids, path, force=False, template=None):
             continue
 
         file_name = FILE_NAME_TEMPLATE.format(problem_id)
-        with open(os.path.join(path, file_name), "w") as handler:
+        with open(os.path.join(path, file_name), "w", encoding='utf-8') as handler:
             handler.write(template_str.format(
                 problem_id=problem_id,
                 doc=doc,
