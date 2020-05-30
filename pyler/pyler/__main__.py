@@ -82,8 +82,8 @@ def complete_problem_ids(problem_ids, path):
 
 
 def all_files(path):
+    current = os.getcwd()
     try:
-        current = os.getcwd()
         os.chdir(path)
         return glob.glob(FILE_NAME_GLOB)
     finally:
