@@ -9,7 +9,7 @@ import itertools
 
 from . import website as w
 
-TEMPLATE = """from pyler import EulerProblem
+TEMPLATE = """from pyler.pyler import EulerProblem
 
 
 class Problem{problem_id:04d}(EulerProblem):
