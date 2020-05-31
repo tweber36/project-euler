@@ -1,32 +1,21 @@
-import signal
 import unittest
-import time
+from timeit import Timer
 
-from . import website as w
+from .utils import convert_time
 
 
 class EulerProblem(unittest.TestCase):
 
     problem_id = None
 
-    def solver(self, input_val):
-        raise NotImplementedError()
-
     simple_input = None
     simple_output = None
     real_input = None
+    real_output = None
 
-    def solve_real(self):
-        """
-        Returns the solution of the Problem for the real input
-        """
-        return self.solver(self.real_input)
-
-    def solve_simple(self):
-        """
-        Returns the solution of the Problem for the simple input
-        """
-        return self.solver(self.simple_input)
+    @staticmethod
+    def solver(input_val):
+        raise NotImplementedError()
 
     @classmethod
     def setUpClass(cls):
@@ -36,41 +25,33 @@ class EulerProblem(unittest.TestCase):
 
     def test_simple(self):
         """
-        Checks the simple example
+        Checks the simple example for all implemented solutions
         """
-        self.assertEqual(self.solve_simple(), self.simple_output)
+        solutions = [func for func in dir(self) if func.startswith('solver')]
+        for func in solutions:
+            self.assertEqual(getattr(self, func)(self.simple_input), self.simple_output)
 
     def test_real(self):
         """
-        Checks the real problem against the website
+        Checks all implemented solutions give the same answer and then check this solution against the website
         """
-        website = w.Website()
-        real_output = self.solve_real()
-        self.assertTrue(w.check_solution(
-            website, self.problem_id, solution=real_output))
+        solutions = [getattr(self, func)(self.real_input) for func in dir(self) if func.startswith('solver')]
+        self.assertTrue(len(set(solutions)) == 1)
 
-    # Windows has no Alarm signal. Sorry pal.
-    use_signal = hasattr(signal, "SIGALRM")
+        self.assertListEqual(solutions, [self.real_output]*len(solutions))
 
     def test_time(self):
         """
-        Checks that the real problem runs under a minute
+        Measure the response time of each implementation
         """
-        time_limit = 60
-
-        try:
-            if self.use_signal:
-                def handler(signum, frame):  # pylint: disable=unused-argument
-                    raise TimeoutError()
-                old_handler = signal.signal(signal.SIGALRM, handler)
-                signal.alarm(time_limit)
-            before = time.time()
-            self.solve_real()
-            after = time.time()
-            if after - before > time_limit:
-                raise TimeoutError()
-        except TimeoutError:
-            self.fail("Test failed to end in less than a minute.")
-        finally:
-            if self.use_signal:
-                signal.signal(signal.SIGALRM, old_handler)
+        solutions = [func for func in dir(self) if func.startswith('solver')]
+        timings = {}
+        for solver in solutions:
+            t = Timer(f"p.{solver}(p.real_input)",
+                      setup=f"from solutions.problem_{self.problem_id:04d} import Problem{self.problem_id:04d};"
+                            f"p=Problem{self.problem_id:04d}()")
+            results = t.autorange()
+            timings[solver] = results[1] / results[0]
+            self.assertTrue(timings[solver] < 60)
+        for solver, timing in timings.items():
+            print(f"Average time for {solver}: {convert_time(timing)}")

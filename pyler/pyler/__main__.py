@@ -1,11 +1,12 @@
-import os
-import glob
-import unittest
-import textwrap
 import argparse
+import glob
+import os
 import re
-import sys
+import textwrap
+import unittest
+
 import itertools
+import sys
 
 from . import website as w
 
@@ -20,9 +21,11 @@ class Problem{problem_id:04d}(EulerProblem):
     simple_input = 0
     simple_output = 1
     real_input = 0
+    real_output = 1
 
-    def solver(self, input_val):
-        raise NotImplementedError
+    @staticmethod
+    def solver(input_val):
+        raise NotImplementedError()
 
 
 if __name__ == '__main__':

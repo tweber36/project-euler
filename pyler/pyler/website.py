@@ -1,13 +1,13 @@
 import base64
 import pickle
-import urllib
 import tempfile
+from urllib.parse import urljoin
 
-from bs4 import BeautifulSoup
 import requests
+from bs4 import BeautifulSoup
 
-from .config import Config
 from . import utils
+from .config import Config
 
 
 class Website(object):
@@ -67,14 +67,12 @@ def connect(website):
     if not all(credentials.values()):
         raise ValueError("Cannot connect without credentials")
 
-    soup = solve_captcha(
+    solve_captcha(
         website=website,
         reason="Connection Captcha",
         post_data=credentials,
         url=get_url(website, url_path="sign_in")
     )
-    #if "Sign in successful" not in get_message(soup):
-    #    raise ValueError("Unsuccessful login :(")
 
     save_session_cookies(config, website.session)
 
@@ -97,7 +95,7 @@ def get_url(website, problem_id=None, url_path=None):
     """
     if problem_id:
         url_path = "problem={}".format(problem_id)
-    return urllib.parse.urljoin(website.base_url, url_path)
+    return urljoin(website.base_url, url_path)
 
 
 def request_get(website, *args, **kwargs):

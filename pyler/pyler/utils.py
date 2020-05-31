@@ -1,4 +1,6 @@
+import os
 import subprocess
+
 import sys
 import time
 
@@ -20,6 +22,20 @@ def default_open(something_to_open):
         subprocess.Popen(['open', something_to_open])
 
     elif sys.platform.startswith('win'):
-        subprocess.Popen(['start', something_to_open], shell=True)
+        os.startfile(something_to_open)
 
     time.sleep(0.3)
+
+
+def convert_time(timing):
+    """
+    Convert a timing in s to ms, us or ns, depending on value
+    """
+    if timing < 1e-6:
+        return f"{timing * 1e9:.4f} ns"
+    elif timing < 1e-3:
+        return f"{timing * 1e6:.4f} us"
+    elif timing < 1:
+        return f"{timing * 1e3:.4f} ms"
+    else:
+        return f"{timing:.4f} s"
