@@ -33,12 +33,11 @@ class EulerProblem(unittest.TestCase):
 
     def test_real(self):
         """
-        Checks all implemented solutions give the same answer and then check this solution against the website
+        Checks all implemented solutions give the right answer
         """
         solutions = [getattr(self, func)(self.real_input) for func in dir(self) if func.startswith('solver')]
-        self.assertTrue(len(set(solutions)) == 1)
-
-        self.assertListEqual(solutions, [self.real_output]*len(solutions))
+        for solution in solutions:
+            self.assertEqual(solution, self.real_output)
 
     def test_time(self):
         """
