@@ -5,8 +5,8 @@ Based on:
 https://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n
 """
 
-from math import sqrt, ceil
 import numpy as np
+from math import sqrt, ceil
 
 
 def sieve_of_eratosthenes(n):
@@ -360,7 +360,7 @@ def sieve_wheel_30(N):
     pos, prime, lastadded, stop = 0, 0, 0, int(ceil(sqrt(N)))
     # inner functions definition
     def del_mult(tk, start, step):
-        for k in xrange(start, len(tk), step):
+        for k in range(start, len(tk), step):
             tk[k] = False
 
     # end of inner functions definition
