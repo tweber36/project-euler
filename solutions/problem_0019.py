@@ -1,6 +1,6 @@
 import unittest
 
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
 class Problem0019(EulerProblem, unittest.TestCase):
@@ -20,7 +20,8 @@ class Problem0019(EulerProblem, unittest.TestCase):
     real_input = 1
     real_output = 171
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         def leap_year(x):
             return 29 if (x % 400 == 0 or (x % 4 == 0 and x % 100 != 0)) else 28
 

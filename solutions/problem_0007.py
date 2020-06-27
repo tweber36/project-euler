@@ -1,11 +1,11 @@
-import unittest
 from math import log
 
-from prime_generator import rwh_primes
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
+from utils.prime_generator import rwh_primes
+from utils.primes import is_prime2
 
 
-class Problem0007(EulerProblem, unittest.TestCase):
+class Problem0007(EulerProblem):
     """
     By listing the first six prime numbers: 2, 3, 5, 7, 11, and 13, we can see
     that the 6th prime is 13. What is the 10 001st prime number?
@@ -17,7 +17,8 @@ class Problem0007(EulerProblem, unittest.TestCase):
     real_input = 10001
     real_output = 104743
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         """
         Some useful facts:
         1 is not a prime.
@@ -29,38 +30,17 @@ class Problem0007(EulerProblem, unittest.TestCase):
         then n is prime: the only primefactor of n is n itself
         """
 
-        def is_prime(n):
-            if n == 1:
-                return True
-            elif n < 4:
-                return True
-            elif n % 2 == 0:
-                return False
-            elif n < 9:
-                return True
-            elif n % 3 == 0:
-                return False
-            else:
-                r = int(n ** 0.5)
-                f = 5
-                while f <= r:
-                    if n % f == 0:
-                        return False
-                    if n % (f + 2) == 0:
-                        return False
-                    f += 6
-                return True
-
         count = 1  # 2 is prime
         candidate = 1
         while count < input_val:
             candidate += 2
-            if is_prime(candidate):
+            if is_prime2(candidate):
                 count += 1
 
         return candidate
 
-    def solver2(self, input_val):
+    @staticmethod
+    def solver2(input_val):
         """
         If p(n) is the n-th prime number, we know (Rosser, 1941) that an upper bound
         for n >= 6 is: n * ln( n * ln(n))
@@ -76,4 +56,5 @@ class Problem0007(EulerProblem, unittest.TestCase):
 
 
 if __name__ == "__main__":
+    import unittest
     unittest.main()

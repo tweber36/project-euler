@@ -1,6 +1,6 @@
 import unittest
 
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
 class Problem0025(EulerProblem, unittest.TestCase):
@@ -19,7 +19,8 @@ class Problem0025(EulerProblem, unittest.TestCase):
     real_input = 1000
     real_output = 4782
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         a, b, count = 1, 1, 2  # Initialize first terms and counter
         while len(str(b)) < input_val:
             a, b = b, a + b

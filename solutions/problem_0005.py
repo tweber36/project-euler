@@ -1,14 +1,13 @@
-import unittest
 from collections import Counter
 from functools import reduce
 from math import log
 
-from prime_generator import rwh_primes
-from pyler import EulerProblem
-from utils import prime_factors
+from pyler.pyler import EulerProblem
+from utils.prime_generator import rwh_primes
+from utils.primes import prime_factors
 
 
-class Problem0005(EulerProblem, unittest.TestCase):
+class Problem0005(EulerProblem):
     """
     2520 is the smallest number that can be divided by each of the numbers from
     1 to 10 without any remainder. What is the smallest positive number that is
@@ -21,7 +20,8 @@ class Problem0005(EulerProblem, unittest.TestCase):
     real_input = 20
     real_output = 232792560
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         """
         Let p[i] be the i th prime number: p[1] = 2, p[2] = 3, p[3] = 5, … .
         Let N = p[1]^a[1] * p[2]^a[2] * p[3]^a[3] * … ;
@@ -43,7 +43,8 @@ class Problem0005(EulerProblem, unittest.TestCase):
 
         return reduce(lambda x, key: x * pow(key, factors_min[key]), factors_min, 1)
 
-    def solver2(self, input_val):
+    @staticmethod
+    def solver2(input_val):
         """
         Same idea as solver but faster for small values of input_val.
         But as input_val grows (more than a few hundreds), this becomes slower than
@@ -58,7 +59,8 @@ class Problem0005(EulerProblem, unittest.TestCase):
                         break
         return lcm
 
-    def solver3(self, input_val):
+    @staticmethod
+    def solver3(input_val):
         """
         we want the LCM of 1 through N. Clearly, we only need a list of all primes ≤N,
         and for each prime, we need its maximum possible power that won't exceed N
@@ -77,4 +79,5 @@ class Problem0005(EulerProblem, unittest.TestCase):
 
 
 if __name__ == "__main__":
+    import unittest
     unittest.main()

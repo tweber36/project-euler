@@ -1,10 +1,9 @@
-import unittest
 from math import sqrt, gcd
 
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
-class Problem0009(EulerProblem, unittest.TestCase):
+class Problem0009(EulerProblem):
     """
     A Pythagorean triplet is a set of three natural numbers, a < b < c, for
     which,  a2 + b2 = c2 For example, 32 + 42 = 9 + 16 = 25 = 52. There exists
@@ -18,7 +17,8 @@ class Problem0009(EulerProblem, unittest.TestCase):
     real_input = 1000
     real_output = 31875000
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         """
         This algorithm is sufficiently fast for small enough s,
         but it doesn’t scale well.
@@ -35,7 +35,8 @@ class Problem0009(EulerProblem, unittest.TestCase):
                     return a * b * c
         return 0
 
-    def solver2(self, input_val):
+    @staticmethod
+    def solver2(input_val):
         """
         If a² + b² = c² and a + b + c = input_val
         then we can find b = input_val * (input_val/2-a) / (input_val-a)
@@ -47,7 +48,8 @@ class Problem0009(EulerProblem, unittest.TestCase):
             if int(b) == b:
                 return a * int(b) * (input_val - a - int(b))
 
-    def solver3(self, input_val):
+    @staticmethod
+    def solver3(input_val):
         """ See problem overview for details. """
         m_limit = int(sqrt(input_val / 2))
         for m in range(2, m_limit + 1):
@@ -69,6 +71,19 @@ class Problem0009(EulerProblem, unittest.TestCase):
                         return a * b * c
                     k += 2
 
+    @staticmethod
+    def solver4(input_val):
+        """
+        Similar to solver but with tighter bounds
+        """
+        for a in range(3, (input_val - 3) // 3 + 1):
+            for b in range(a + 1, (input_val - a) // 2 + 1):
+                c = sqrt(a * a + b * b)
+                if c.is_integer() and a + b + c == input_val:
+                    return a * b * c
+        return 0
+
 
 if __name__ == "__main__":
+    import unittest
     unittest.main()

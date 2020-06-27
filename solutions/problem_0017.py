@@ -1,6 +1,6 @@
 import unittest
 
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
 class Problem0017(EulerProblem, unittest.TestCase):
@@ -20,7 +20,8 @@ class Problem0017(EulerProblem, unittest.TestCase):
     real_input = 1000
     real_output = 21124
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         """ Works for input_val up to 1000 """
         numbers = {
             0: "",
@@ -54,7 +55,7 @@ class Problem0017(EulerProblem, unittest.TestCase):
             1000: "onethousand",
         }
         for i in range(1, input_val + 1):
-            if not i in numbers.keys():
+            if i not in numbers.keys():
                 if i < 100:
                     numbers[i] = numbers[i // 10 * 10] + numbers[i % 10]
                 else:

@@ -1,10 +1,9 @@
-import unittest
 from math import factorial
 
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
-class Problem0015(EulerProblem, unittest.TestCase):
+class Problem0015(EulerProblem):
     """
     Starting in the top left corner of a 2×2 grid, and only being able to move
     to the right and down, there are exactly 6 routes to the bottom right
@@ -17,7 +16,8 @@ class Problem0015(EulerProblem, unittest.TestCase):
     real_input = 20
     real_output = 137846528820
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         weights = []
 
         for i in range(input_val + 1):
@@ -41,7 +41,8 @@ class Problem0015(EulerProblem, unittest.TestCase):
 
         return weights[input_val][input_val]
 
-    def solver2(self, input_val):
+    @staticmethod
+    def solver2(input_val):
         """ Recursive algorithm with memoization """
         cache = dict()
 
@@ -55,7 +56,8 @@ class Problem0015(EulerProblem, unittest.TestCase):
 
         return count_routes(input_val, input_val)
 
-    def solver3(self, input_val):
+    @staticmethod
+    def solver3(input_val):
         """ Iterative solution close to solver """
         grid = [[1] * (input_val + 1)] * (input_val + 1)
 
@@ -65,10 +67,12 @@ class Problem0015(EulerProblem, unittest.TestCase):
 
         return grid[input_val][input_val]
 
-    def solver4(self, input_val):
+    @staticmethod
+    def solver4(input_val):
         """ Combinatorial solution """
         return factorial(2 * input_val) // factorial(input_val) // factorial(input_val)
 
 
 if __name__ == "__main__":
+    import unittest
     unittest.main()

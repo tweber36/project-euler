@@ -1,7 +1,7 @@
 from math import sqrt, log10
 
 from pyler.pyler import EulerProblem
-from utils import fib
+from utils.misc import fib
 
 
 class Problem0002(EulerProblem):
@@ -55,7 +55,7 @@ class Problem0002(EulerProblem):
     def solver4(input_val):
         """
         One can prove that even terms are every third number.
-        So, let define G(n) = F(3n) and S(n) = sum(G(n))
+        So, let define G(n) = F(3n) and S(n) = sum(G(i))
         With a = F(3n+2), b = F(3n+3), we can prove that next a and b will be:
         a' = F(3n+5) = a + 2b
         b' = F(3n+6) = 2a + 3b

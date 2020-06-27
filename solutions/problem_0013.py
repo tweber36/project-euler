@@ -1,9 +1,7 @@
-import unittest
-
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
-class Problem0013(EulerProblem, unittest.TestCase):
+class Problem0013(EulerProblem):
     """
     Work out the first ten digits of the sum of the following one-hundred
     50-digit numbers.  37107287533902102798797998220837590246510135740250
@@ -217,7 +215,8 @@ class Problem0013(EulerProblem, unittest.TestCase):
     real_input = digits
     real_output = 5537376230
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         digits_list = input_val.replace("\n", " ").split()
 
         carry = 0
@@ -235,10 +234,12 @@ class Problem0013(EulerProblem, unittest.TestCase):
 
         return int("".join(answer)[:10])
 
-    def solver2(self, input_val):
+    @staticmethod
+    def solver2(input_val):
         digits_list = input_val.replace("\n", " ").split()
         return int(str(sum(int(x) for x in digits_list))[:10])
 
 
 if __name__ == "__main__":
+    import unittest
     unittest.main()

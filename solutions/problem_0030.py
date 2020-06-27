@@ -1,6 +1,6 @@
 import unittest
 
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
 class Problem0030(EulerProblem, unittest.TestCase):
@@ -18,7 +18,8 @@ class Problem0030(EulerProblem, unittest.TestCase):
     real_input = 5
     real_output = 443839
 
-    def find_n_digits_max(self, n):
+    @staticmethod
+    def find_n_digits_max(n):
         k = 1
         while 10 ** k <= (k + 1) * (9 ** n):
             k += 1
@@ -35,14 +36,14 @@ class Problem0030(EulerProblem, unittest.TestCase):
     def solver2(self, input_val):
         """ https://projecteuler.net/thread=30;page=5#140138 """
 
-        def genUniqueGroups(n_digits, lower=0, upper=9):
+        def gen_unique_groups(n_digits, lower=0, upper=9):
             # Recursive generator for unique groups of digits, length n_digits
             if n_digits == 1:
                 for i in range(lower, upper + 1):
                     yield [i]
             else:
                 for i in range(lower, upper + 1):
-                    for j in genUniqueGroups(n_digits - 1, i, upper):
+                    for j in gen_unique_groups(n_digits - 1, i, upper):
                         group = [i]
                         group.extend(j)
                         yield group
@@ -52,7 +53,7 @@ class Problem0030(EulerProblem, unittest.TestCase):
         limit = min([int(j) for j in str(n_digits_max * 9 ** input_val)])
 
         result = -1
-        for digits_group in genUniqueGroups(n_digits_max):
+        for digits_group in gen_unique_groups(n_digits_max):
             if digits_group[0] > limit:  # groups are sorted with lower value first
                 break
             flag = True

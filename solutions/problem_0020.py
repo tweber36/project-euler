@@ -1,7 +1,7 @@
 import unittest
 from math import factorial
 
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
 class Problem0020(EulerProblem, unittest.TestCase):
@@ -15,9 +15,11 @@ class Problem0020(EulerProblem, unittest.TestCase):
     simple_output = 27
     real_input = 100
     real_output = 648
-    
-    def solver(self, input_val):
+
+    @staticmethod
+    def solver(input_val):
         return sum(map(int, str(factorial(input_val))))
+
 
 if __name__ == '__main__':
     unittest.main()

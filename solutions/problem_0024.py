@@ -2,7 +2,7 @@ import unittest
 from itertools import permutations
 from math import factorial, ceil
 
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
 class Problem0024(EulerProblem, unittest.TestCase):
@@ -21,12 +21,14 @@ class Problem0024(EulerProblem, unittest.TestCase):
     real_input = (10, 1000000)
     real_output = 2783915460
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         digits, perm_limit = range(input_val[0]), input_val[1]
         perms = list(permutations(digits))
         return int("".join(map(str, perms[perm_limit - 1])))
 
-    def solver2(self, input_val):
+    @staticmethod
+    def solver2(input_val):
         """
         Here's a cool way to solve this problem. Figure out the problem digit by digit.
         First the sorted digits are [0,1,2,3,4,5,6,7,8,9] so let's figure out where
@@ -53,7 +55,8 @@ class Problem0024(EulerProblem, unittest.TestCase):
         result.append(digits[0])
         return int("".join(map(str, result)))
 
-    def solver3(self, input_val):
+    @staticmethod
+    def solver3(input_val):
         """ Same idea but a bit faster. """
         digits, limit = list(range(input_val[0])), input_val[1] - 1
         result = []

@@ -1,6 +1,6 @@
 import unittest
 
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
 class Problem0022(EulerProblem, unittest.TestCase):
@@ -21,7 +21,8 @@ class Problem0022(EulerProblem, unittest.TestCase):
     real_input = "p022_names.txt"
     real_output = 871198282
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         with open(input_val) as f:
             names = f.read().split(",")
             names.sort()

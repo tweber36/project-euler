@@ -1,6 +1,6 @@
 import unittest
 
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
 class Problem0029(EulerProblem, unittest.TestCase):
@@ -18,8 +18,9 @@ class Problem0029(EulerProblem, unittest.TestCase):
     simple_output = 15
     real_input = (2, 100)
     real_output = 9183
-    
-    def solver(self, input_val):
+
+    @staticmethod
+    def solver(input_val):
         distinct_numbers = set()
         for a in range(input_val[0], input_val[1] + 1):
             for b in range(input_val[0], input_val[1] + 1):

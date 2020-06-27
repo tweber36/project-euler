@@ -1,6 +1,6 @@
 import unittest
 
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
 class Problem0018(EulerProblem, unittest.TestCase):
@@ -42,7 +42,8 @@ class Problem0018(EulerProblem, unittest.TestCase):
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"""
     real_output = 1074
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         """
         The idea is to start from the end.
         At a number on the layer i, you can look at the two numbers possible

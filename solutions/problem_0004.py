@@ -1,9 +1,7 @@
-import unittest
-
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
-class Problem0004(EulerProblem, unittest.TestCase):
+class Problem0004(EulerProblem):
     """
     A palindromic number reads the same both ways. The largest palindrome made
     from the product of two 2-digit numbers is 9009 = 91 × 99. Find the largest
@@ -16,7 +14,8 @@ class Problem0004(EulerProblem, unittest.TestCase):
     real_input = 3
     real_output = 906609
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         """
         Let our palindrome be P = ab with a and b the input_val-digit numbers.
         If a and b are input_val-digits long then they must lie between
@@ -29,7 +28,8 @@ class Problem0004(EulerProblem, unittest.TestCase):
                     max_pal = a * b
         return max_pal
 
-    def solver2(self, input_val):
+    @staticmethod
+    def solver2(input_val):
         """
         To stop checking many numbers multiple times we can assume a <= b.
         This roughly halves the number of calculations needed.
@@ -41,7 +41,8 @@ class Problem0004(EulerProblem, unittest.TestCase):
                     max_pal = a * b
         return max_pal
 
-    def solver3(self, input_val):
+    @staticmethod
+    def solver3(input_val):
         """
         Instead of going upwards, we consider counting downwards and stop checking
         a and b that would be too small to improve upon the largest palindrome found
@@ -57,7 +58,8 @@ class Problem0004(EulerProblem, unittest.TestCase):
                     max_pal = a * b
         return max_pal
 
-    def solver4(self, input_val):
+    @staticmethod
+    def solver4(input_val):
         """
         Consider the digits of P - let them be x, y and z.
         P must be at least 6 digits long since the palindrome 111111 = 143x777 -
@@ -87,4 +89,5 @@ class Problem0004(EulerProblem, unittest.TestCase):
 
 
 if __name__ == "__main__":
+    import unittest
     unittest.main()

@@ -1,6 +1,6 @@
 import unittest
 
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
 class Problem0028(EulerProblem, unittest.TestCase):
@@ -18,7 +18,8 @@ class Problem0028(EulerProblem, unittest.TestCase):
     real_input = 1001
     real_output = 669171001
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         """ Explicit the corner values of each square of size i """
         if input_val < 2 or input_val % 2 == 0:
             raise ValueError(
@@ -31,7 +32,8 @@ class Problem0028(EulerProblem, unittest.TestCase):
                 result += 4 * i ** 2 - 6 * (i - 1)
             return result
 
-    def solver2(self, input_val):
+    @staticmethod
+    def solver2(input_val):
         """
         Explicit formula for the sum of corner values for each square.
         Useful sums:

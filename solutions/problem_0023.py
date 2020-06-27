@@ -1,7 +1,7 @@
 import unittest
 
-from pyler import EulerProblem
-from utils import sum_of_proper_divisors
+from pyler.pyler import EulerProblem
+from utils.misc import sum_of_proper_divisors
 
 
 class Problem0023(EulerProblem, unittest.TestCase):
@@ -27,7 +27,8 @@ class Problem0023(EulerProblem, unittest.TestCase):
     real_input = 0
     real_output = 4179871
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         abundants = set()
         result = 0
         for n in range(1, 28124):
@@ -37,7 +38,8 @@ class Problem0023(EulerProblem, unittest.TestCase):
                 result += n
         return result
 
-    def solver2(self, input_val):
+    @staticmethod
+    def solver2(input_val):
         sum_div = [1] * 28124
         for i in range(2, int(28123 ** 0.5) + 1):
             sum_div[i * i] += i

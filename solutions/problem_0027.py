@@ -1,8 +1,8 @@
 import unittest
 
-from prime_generator import rwh_primes
-from pyler import EulerProblem
-from utils import is_prime2
+from pyler.pyler import EulerProblem
+from utils.prime_generator import rwh_primes
+from utils.primes import is_prime2
 
 
 class Problem0027(EulerProblem, unittest.TestCase):
@@ -27,7 +27,8 @@ class Problem0027(EulerProblem, unittest.TestCase):
     real_input = (1000, 1000)
     real_output = -59231
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         def number_of_consecutive_primes(a, b):
             n = 0
             while is_prime2(n * n + a * n + b):
@@ -45,7 +46,8 @@ class Problem0027(EulerProblem, unittest.TestCase):
                     product = a * b
         return product
 
-    def solver2(self, input_val):
+    @staticmethod
+    def solver2(input_val):
         """
         When you research Euler's polynomial as stated in the problem, you will quickly
         come across:

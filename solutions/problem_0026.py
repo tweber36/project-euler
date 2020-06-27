@@ -1,7 +1,7 @@
 import unittest
 from itertools import count
 
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
 class Problem0026(EulerProblem, unittest.TestCase):
@@ -21,7 +21,8 @@ class Problem0026(EulerProblem, unittest.TestCase):
     real_input = 1000
     real_output = 983
 
-    def solver(self, input_val):
+    @staticmethod
+    def solver(input_val):
         def recurring_cycle_length(n):
             if n <= 1:
                 raise ValueError("n should be > 2")
@@ -37,7 +38,8 @@ class Problem0026(EulerProblem, unittest.TestCase):
         )
         return number
 
-    def solver2(self, input_val):
+    @staticmethod
+    def solver2(input_val):
         def recurring_cycle_length(n):
             remainder = 10  # initial remainder: 10 * (1 % n)
             remainders_seen = {}  # remainders first pos

@@ -1,9 +1,7 @@
-import unittest
-
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
 
 
-class Problem0014(EulerProblem, unittest.TestCase):
+class Problem0014(EulerProblem):
     """
     The following iterative sequence is defined for the set of positive
     integers: n → n/2 (n is even)n → 3n + 1 (n is odd) Using the rule above and
@@ -16,36 +14,13 @@ class Problem0014(EulerProblem, unittest.TestCase):
     """
 
     problem_id = 14
-    simple_input = 10
+    simple_input = 13
     simple_output = 9
     real_input = 1000000
     real_output = 837799
 
-    """ 
-    ---- TOO SLOW -----
-    def solver(self, input_val):
-        longest_chain = 0
-        answer = 0
-
-        for i in range(1, input_val):
-            collatz = [i]
-            counter = 1
-
-            while collatz[-1] != 1:
-                if collatz[-1] % 2 == 0:
-                    collatz.append(collatz[-1] / 2)
-                else:
-                    collatz.append(3 * collatz[-1] + 1)
-                counter += 1
-
-            if counter > longest_chain:
-                longest_chain = counter
-                answer = i
-
-        return answer
-    """
-
-    def solver2(self, input_val):
+    @staticmethod
+    def solver(input_val):
         cache = {1: 1}
         longest_chain, answer = 0, -1
 
@@ -71,17 +46,45 @@ class Problem0014(EulerProblem, unittest.TestCase):
                 answer = i
         return answer
 
-    def solver3(self, input_val):
+    """ Slow methods
+    @staticmethod
+    def solver2(input_val):
         def collatz(n):
             return n // 2 if n % 2 == 0 else 3 * n + 1
 
-        def distance(n, cache={1: 1}):
+        def distance(n, cache=None):
+            if cache is None:
+                cache = {1: 1}
             if n not in cache:
                 cache[n] = distance(collatz(n)) + 1
             return cache[n]
 
         return max(range(1, input_val), key=distance)
 
+    @staticmethod
+    def solver3(input_val):
+        longest_chain = 0
+        answer = 0
+
+        for i in range(1, input_val):
+            collatz = [i]
+            counter = 1
+
+            while collatz[-1] != 1:
+                if collatz[-1] % 2 == 0:
+                    collatz.append(collatz[-1] / 2)
+                else:
+                    collatz.append(3 * collatz[-1] + 1)
+                    counter += 1
+
+            if counter > longest_chain:
+                longest_chain = counter
+                answer = i
+
+        return answer
+    """
+
 
 if __name__ == "__main__":
+    import unittest
     unittest.main()

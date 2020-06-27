@@ -1,7 +1,7 @@
 import unittest
 
-from prime_generator import rwh_primes
-from pyler import EulerProblem
+from pyler.pyler import EulerProblem
+from utils.prime_generator import rwh_primes
 
 
 class Problem0021(EulerProblem, unittest.TestCase):
@@ -21,11 +21,13 @@ class Problem0021(EulerProblem, unittest.TestCase):
     real_input = 10000
     real_output = 31626
 
-    def sum_of_divisors(self, n):
+    @staticmethod
+    def sum_of_divisors(n):
         """ Slow but short solution to get the sum of divisors of a number n """
         return sum(d for d in range(1, n // 2 + 1) if n % d == 0)
 
-    def sum_of_divisors2(self, n):
+    @staticmethod
+    def sum_of_divisors2(n):
         """
         Faster solution that uses the two facts:
         1. for every divisor d, n / d is also a divisor (they come by pair except
@@ -48,7 +50,8 @@ class Problem0021(EulerProblem, unittest.TestCase):
         )
         return answer
 
-    def sum_of_divisors3(self, n):
+    @staticmethod
+    def sum_of_divisors3(n):
         """
         Fast solution using the prime decomposition of n
         https://mathschallenge.net/index.php?section=faq&ref=number/sum_of_divisors
@@ -72,13 +75,15 @@ class Problem0021(EulerProblem, unittest.TestCase):
             answer *= n_temp + 1
         return answer - n
 
-    def sum_of_amicable(self, input_val, func):
+    @staticmethod
+    def sum_of_amicable(input_val, func):
         """ Slow but short solution """
         return sum(
             i for i in range(1, input_val + 1) if (func(func(i)) == i and i != func(i))
         )
 
-    def sum_of_amicable2(self, input_val, func):
+    @staticmethod
+    def sum_of_amicable2(input_val, func):
         """
         Faster because we compute func only twice (compared to 3 times in the
         previous solution)
