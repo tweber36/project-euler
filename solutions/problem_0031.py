@@ -10,12 +10,54 @@ class Problem0031(EulerProblem):
     using any number of coins?
     """
     problem_id = 31
-    simple_input = 0
-    simple_output = 1
-    real_input = 0
+    simple_input = 200
+    simple_output = 73682
+    real_input = 200
+    real_output = 73682
 
-    def solver(self, input_val):
-        raise NotImplementedError
+    @staticmethod
+    def solver(input_val):
+        coins = [1, 2, 5, 10, 20, 50, 100, 200]
+
+        def ways(target, pos_highest_coin):
+            if pos_highest_coin <= 1:
+                return 1
+            count = 0
+            while target >= 0:
+                count += ways(target, pos_highest_coin - 1)
+                target -= coins[pos_highest_coin - 1]
+            return count
+
+        return ways(input_val, len(coins))
+
+    @staticmethod
+    def solver2(input_val):
+        coins = [1, 2, 5, 10, 20, 50, 100, 200]
+        memoization = {}
+
+        def ways(target, pos_highest_coin):
+            if pos_highest_coin <= 1:
+                return 1
+            t = target
+            if memoization.get((t, pos_highest_coin), 0) > 0:
+                return memoization[(t, pos_highest_coin)]
+            count = 0
+            while target >= 0:
+                count += ways(target, pos_highest_coin - 1)
+                target -= coins[pos_highest_coin - 1]
+            memoization[(t, pos_highest_coin)] = count
+            return count
+
+        return ways(input_val, len(coins))
+
+    @staticmethod
+    def solver3(input_val):
+        coins = [1, 2, 5, 10, 20, 50, 100, 200]
+        ways = {0: 1}
+        for i in range(len(coins)):
+            for j in range(coins[i], input_val + 1):
+                ways[j] = ways.get(j, 0) + ways.get(j - coins[i], 0)
+        return ways[input_val]
 
 
 if __name__ == '__main__':

@@ -22,16 +22,16 @@ class Problem0023(EulerProblem, unittest.TestCase):
     """
 
     problem_id = 23
-    simple_input = 0
+    simple_input = 28123
     simple_output = 4179871
-    real_input = 0
+    real_input = 28123
     real_output = 4179871
 
     @staticmethod
     def solver(input_val):
         abundants = set()
         result = 0
-        for n in range(1, 28124):
+        for n in range(1, input_val + 1):
             if sum_of_proper_divisors(n) > n:
                 abundants.add(n)
             if not any((n - a in abundants) for a in abundants):
@@ -40,13 +40,15 @@ class Problem0023(EulerProblem, unittest.TestCase):
 
     @staticmethod
     def solver2(input_val):
-        sum_div = [1] * 28124
-        for i in range(2, int(28123 ** 0.5) + 1):
+        """ First build the sum of divisors for all numbers and then look for non-abundants """
+        sum_div = [1] * (input_val + 1)
+        for i in range(2, int(input_val ** 0.5) + 1):
             sum_div[i * i] += i
-            for k in range(i + 1, 28123 // i + 1):
+            for k in range(i + 1, input_val // i + 1):
                 sum_div[k * i] += k + i
+
         abundants, result = set(), 0
-        for n in range(1, 28124):
+        for n in range(1, input_val + 1):
             if sum_div[n] > n:
                 abundants.add(n)
             if not any((n - a in abundants) for a in abundants):

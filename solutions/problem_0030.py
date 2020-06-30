@@ -1,5 +1,7 @@
 import unittest
 
+from itertools import combinations_with_replacement
+
 from pyler.pyler import EulerProblem
 
 
@@ -36,24 +38,13 @@ class Problem0030(EulerProblem, unittest.TestCase):
     def solver2(self, input_val):
         """ https://projecteuler.net/thread=30;page=5#140138 """
 
-        def gen_unique_groups(n_digits, lower=0, upper=9):
-            # Recursive generator for unique groups of digits, length n_digits
-            if n_digits == 1:
-                for i in range(lower, upper + 1):
-                    yield [i]
-            else:
-                for i in range(lower, upper + 1):
-                    for j in gen_unique_groups(n_digits - 1, i, upper):
-                        group = [i]
-                        group.extend(j)
-                        yield group
-
         n_digits_max = self.find_n_digits_max(input_val)
-        # when all digits are over this value, stop looking
+        # when all digits are over this limit, stop looking
         limit = min([int(j) for j in str(n_digits_max * 9 ** input_val)])
 
-        result = -1
-        for digits_group in gen_unique_groups(n_digits_max):
+        result = -1  # As 1 = 1^input_val is not a sum it is not included, and we offset by 1
+        for digits_group in combinations_with_replacement(range(10), n_digits_max):
+            digits_group = list(digits_group)
             if digits_group[0] > limit:  # groups are sorted with lower value first
                 break
             flag = True
@@ -64,7 +55,7 @@ class Problem0030(EulerProblem, unittest.TestCase):
                 else:
                     flag = False
                     break
-            if flag and sum(digits_group) == 0:  # all numbers accounted for
+            if flag and sum(digits_group) == 0: # all numbers accounted for
                 result += sum_pow_digits_group
         return result
 

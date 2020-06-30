@@ -1,6 +1,7 @@
 import unittest
 
 from pyler.pyler import EulerProblem
+from utils.misc import sum_of_proper_divisors
 from utils.prime_generator import rwh_primes
 
 
@@ -29,30 +30,6 @@ class Problem0021(EulerProblem, unittest.TestCase):
     @staticmethod
     def sum_of_divisors2(n):
         """
-        Faster solution that uses the two facts:
-        1. for every divisor d, n / d is also a divisor (they come by pair except
-         for a perfect square)
-        2. Odd numbers cannot have even divisors
-        """
-        if n == 1:
-            return 1
-        limit = int(n ** 0.5)
-        if limit * limit == n:
-            answer = 1 + limit
-            limit -= 1
-        else:
-            answer = 1
-        divisor_ini, step = (3, 2) if (n & 1) else (2, 1)
-        answer += sum(
-            divisor + n // divisor
-            for divisor in range(divisor_ini, limit + 1, step)
-            if n % divisor == 0
-        )
-        return answer
-
-    @staticmethod
-    def sum_of_divisors3(n):
-        """
         Fast solution using the prime decomposition of n
         https://mathschallenge.net/index.php?section=faq&ref=number/sum_of_divisors
         """
@@ -77,13 +54,6 @@ class Problem0021(EulerProblem, unittest.TestCase):
 
     @staticmethod
     def sum_of_amicable(input_val, func):
-        """ Slow but short solution """
-        return sum(
-            i for i in range(1, input_val + 1) if (func(func(i)) == i and i != func(i))
-        )
-
-    @staticmethod
-    def sum_of_amicable2(input_val, func):
         """
         Faster because we compute func only twice (compared to 3 times in the
         previous solution)
@@ -103,16 +73,7 @@ class Problem0021(EulerProblem, unittest.TestCase):
         return self.sum_of_amicable(input_val, self.sum_of_divisors2)
 
     def solver3(self, input_val):
-        return self.sum_of_amicable(input_val, self.sum_of_divisors3)
-
-    def solver4(self, input_val):
-        return self.sum_of_amicable2(input_val, self.sum_of_divisors)
-
-    def solver5(self, input_val):
-        return self.sum_of_amicable2(input_val, self.sum_of_divisors2)
-
-    def solver6(self, input_val):
-        return self.sum_of_amicable2(input_val, self.sum_of_divisors3)
+        return self.sum_of_amicable(input_val, sum_of_proper_divisors)
 
 
 if __name__ == "__main__":
