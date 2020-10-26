@@ -32,6 +32,22 @@ class Problem0034(EulerProblem):
                 result += i
         return result
 
+    @staticmethod
+    def solver2(input_val):
+        factorials = {str(x): factorial(x) for x in range(10)}
+        n_digits = 1
+        while n_digits * factorials['9'] >= 10 ** n_digits:
+            n_digits += 1
+        upper_bound = n_digits * factorials['9']
+        result = 0
+        for i in range(10, upper_bound):
+            digits_factorials = [factorials[x] for x in str(i)]
+            if sum(digits_factorials) == i:
+                result += i
+        return result
+
+
+
 
 if __name__ == '__main__':
     import unittest
