@@ -21,13 +21,14 @@ class EulerProblem(unittest.TestCase):
     def setUpClass(cls):
         if cls.solver is EulerProblem.solver:
             raise unittest.SkipTest(
-                "Not running the tests for a not implemented problem")
+                "Not running the tests for a not implemented problem"
+            )
 
     def test_simple(self):
         """
         Checks the simple example for all implemented solutions
         """
-        solutions = [func for func in dir(self) if func.startswith('solver')]
+        solutions = [func for func in dir(self) if func.startswith("solver")]
         for func in solutions:
             self.assertEqual(getattr(self, func)(self.simple_input), self.simple_output)
 
@@ -35,7 +36,11 @@ class EulerProblem(unittest.TestCase):
         """
         Checks all implemented solutions give the right answer
         """
-        solutions = [getattr(self, func)(self.real_input) for func in dir(self) if func.startswith('solver')]
+        solutions = [
+            getattr(self, func)(self.real_input)
+            for func in dir(self)
+            if func.startswith("solver")
+        ]
         for solution in solutions:
             self.assertEqual(solution, self.real_output)
 
@@ -43,12 +48,14 @@ class EulerProblem(unittest.TestCase):
         """
         Measure the response time of each implementation
         """
-        solutions = [func for func in dir(self) if func.startswith('solver')]
+        solutions = [func for func in dir(self) if func.startswith("solver")]
         timings = {}
         for solver in solutions:
-            t = Timer(f"p.{solver}(p.real_input)",
-                      setup=f"from solutions.problem_{self.problem_id:04d} import Problem{self.problem_id:04d};"
-                            f"p=Problem{self.problem_id:04d}()")
+            t = Timer(
+                f"p.{solver}(p.real_input)",
+                setup=f"from solutions.problem_{self.problem_id:04d} import Problem{self.problem_id:04d};"
+                f"p=Problem{self.problem_id:04d}()",
+            )
             results = t.autorange()
             timings[solver] = results[1] / results[0]
             self.assertTrue(timings[solver] < 60)

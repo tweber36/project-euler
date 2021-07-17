@@ -47,8 +47,6 @@ class Problem0034(EulerProblem):
         return result
 
 
-
-
 if __name__ == '__main__':
     import unittest
     unittest.main()

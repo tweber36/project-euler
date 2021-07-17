@@ -1,12 +1,11 @@
 import argparse
 import glob
+import itertools
 import os
 import re
+import sys
 import textwrap
 import unittest
-
-import itertools
-import sys
 
 from . import website as w
 
@@ -34,9 +33,9 @@ if __name__ == '__main__':
 
 """
 
-FILE_NAME_TEMPLATE = "problem_{:04d}.py"
-FILE_NAME_REGEX = r"problem_(\d{4})\.py"
-FILE_NAME_GLOB = "problem_*.py"
+FILE_NAME_TEMPLATE = "p{:03d}.py"
+FILE_NAME_REGEX = r"p(\d{3})\.py"
+FILE_NAME_GLOB = "p*.py"
 
 
 def iter_problem_ids(problem_string):

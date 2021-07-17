@@ -1,5 +1,4 @@
 import unittest
-
 from itertools import combinations_with_replacement
 
 from pyler.pyler import EulerProblem
